@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Resultados</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <div class="jumbotron">
+
+        <div class="card">
+            <div id="myDiv"></div>
+            <div class="card-body">
+                <h5 class="card-title">Quantidade de Cadastros</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <% Object.keys(item.curso).map( curso => { %>
+                <li class="list-group-item"><%= curso %>: <%= item.curso[curso] %></li>
+                <% })%>
+            </ul>
+        </div>
+
+    </div>
+
+    <script>
+        var data = [{
+            values: [<%= item.values %>],
+            labels: ["<%= item.labels[0] %>", "<%= item.labels[1] %>", "<%= item.labels[2] %>", "<%= item.labels[3] %>", "<%= item.labels[4] %>", "<%= item.labels[5] %>", "<%= item.labels[6] %>"],
+            type: 'pie'
+        }];
+
+        Plotly.newPlot('myDiv', data, {}, { showSendToCloud: true });
+    </script>
+
+</body>
+
+</html>

@@ -1,4 +1,4 @@
-{
+const obj = {
     "curso": [
         "Administração",
         "Economia",
@@ -66,3 +66,5 @@
         "Não"
     ]
 }
+
+module.exports = obj

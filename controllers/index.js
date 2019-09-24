@@ -18,7 +18,6 @@ const buscaTotalCurso = async (whereParam) => {
 const Home = (req, res) => res.render('home', { obj })
 
 const SaveData = async (req, res) => {
-    console.log(req.body)
     try {
         await knex('contabilidade').insert(req.body)
         res.redirect('/success')

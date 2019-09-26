@@ -7,6 +7,7 @@ router
     .get('/', indexController.Home)
     .post('/', indexController.SaveData)
     .get('/success', indexController.Success)
-    .get('/resultados', indexController.Charts)
+    .get('/resultados', (req, res) => res.render('selecao'))
+    .get('/resultados/:id', indexController.Charts)
 
 module.exports = router

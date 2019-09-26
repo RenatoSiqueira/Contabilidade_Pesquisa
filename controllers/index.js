@@ -28,7 +28,7 @@ const SaveData = async (req, res) => {
 
 const Success = (req, res) => res.render('success')
 
-const Charts = async (req, res) => {
+const TotalCursos = async () => {
     const item = {
         curso: {}
     }
@@ -50,7 +50,70 @@ const Charts = async (req, res) => {
             item.curso.Turismo
         ]
         item.labels = ["Administração", "Contabilidade", "Economia", "Arquivologia", "Biblioteconomia", "Servico Social", "Turismo"]
-        res.render('lista', { item })
+        return item
+    } catch (e) {
+        console.log('Error..')
+    }
+}
+
+const TotalCampo = async (campo, curso) => {
+    const [result] = await knex.raw(`
+    select ${campo} as item, count(${campo}) as result from contabilidade where 
+    ${curso} GROUP BY ${campo}
+    `)
+    return result
+}
+
+const loopGroup = (item, renda = null) => {
+    const result = {}
+    result.value = item.map(i => i.result).join(',')
+    result.label = item.map(i => renda ? i.item.replace(/,/g, '.') : i.item).join(',')
+    result.label = result.label.replace(/,/g, '","')
+    //console.log(result)
+    return result
+}
+
+const Charts = async (req, res) => {
+    const { id } = req.params
+    let curso = `curso = 'Administração' or curso = 'Economia' or curso = 'Contabilidade'`
+    if (id === 'icsa')
+        curso = `curso = 'Arquivologia' or curso = 'Biblioteconomia' or curso = 'Servico Social' or curso = 'Turismo'`
+    try {
+        const turno = await TotalCampo('turno', curso)
+        const sexo = await TotalCampo('sexo', curso)
+        const idade = await TotalCampo('idade', curso)
+        const planejamento = await TotalCampo('planejamento', curso)
+        const valorrenda = await TotalCampo('valorrenda', curso)
+        const usacartao = await TotalCampo('usacartao', curso)
+        const inadimplente = await TotalCampo('inadimplente', curso)
+        const teriacontrole = await TotalCampo('teriacontrole', curso)
+        const chartTurn = loopGroup(turno)
+        const chartSex = loopGroup(sexo)
+        const chartIda = loopGroup(idade)
+        const chartPlan = loopGroup(planejamento)
+        const chartVal = loopGroup(valorrenda, 'renda')
+        const chartUsa = loopGroup(usacartao)
+        const chartIna = loopGroup(inadimplente)
+        const chartTer = loopGroup(teriacontrole)
+        res.render('resultados', {
+            curso: id,
+            turno,
+            sexo,
+            idade,
+            planejamento,
+            valorrenda,
+            usacartao,
+            inadimplente,
+            teriacontrole,
+            chartTurn,
+            chartSex,
+            chartIda,
+            chartPlan,
+            chartVal,
+            chartUsa,
+            chartIna,
+            chartTer
+        })
     } catch (e) {
         res.send('Ocorreu um erro.')
     }

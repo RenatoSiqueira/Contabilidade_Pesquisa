@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-Br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Resultados</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body>
+    <h1>Pesquisa das áreas de <%= curso.toUpperCase() %></h1>
+        <a href="/resultados" class="btn btn-primary">Voltar para Seleção</a>
+    <div class="jumbotron">
+        <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Qual seu Turno?</h5>
+            <div id="divTurno"></div>
+        </div>
+        <ul class="list-group list-group-flush">
+            <% turno.map( item => { %>
+            <li class="list-group-item"><%= item.item %>: <%= item.result %></li>
+            <% }) %>
+        </ul>
+        <br />
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Qual seu Sexo?</h5>
+                <div id="divSex"></div>
+            </div>
+            <ul class="list-group list-group-flush">
+                <% sexo.map( item => { %>
+                <li class="list-group-item"><%= item.item %>: <%= item.result %></li>
+                <% }) %>
+            </ul>
+        </div>
+        <br />
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Qual sua Idade?</h5>
+                <div id="divIda"></div>
+            </div>
+            <ul class="list-group list-group-flush">
+                <% idade.map( item => { %>
+                <li class="list-group-item"><%= item.item %>: <%= item.result %></li>
+                <% }) %>
+            </ul>
+        </div>
+        <br />
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Você tem um planejamento financeiro?</h5>
+                <div id="divPlanejamento"></div>
+            </div>
+            <ul class="list-group list-group-flush">
+                <% planejamento.map( item => { %>
+                <li class="list-group-item"><%= item.item %>: <%= item.result %></li>
+                <% }) %>
+            </ul>
+        </div>
+        <br />
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Qual sua renda mensal?</h5>
+                <div id="divVal"></div>
+            </div>
+            <ul class="list-group list-group-flush">
+                <% valorrenda.map( item => { %>
+                <li class="list-group-item"><%= item.item %>: <%= item.result %></li>
+                <% }) %>
+            </ul>
+        </div>
+        <br />
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Você utiliza cartão de crédito?</h5>
+                <div id="divUsa"></div>
+            </div>
+            <ul class="list-group list-group-flush">
+                <% usacartao.map( item => { %>
+                <li class="list-group-item"><%= item.item %>: <%= item.result %></li>
+                <% }) %>
+            </ul>
+        </div>
+        <br />
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Você está inadimplente?</h5>
+                <div id="divIna"></div>
+            </div>
+            <ul class="list-group list-group-flush">
+                <% inadimplente.map( item => { %>
+                <li class="list-group-item"><%= item.item %>: <%= item.result %></li>
+                <% }) %>
+            </ul>
+        </div>
+        <br />
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Você acha que teria controle se entendesse?</h5>
+                <div id="divTer"></div>
+            </div>
+            <ul class="list-group list-group-flush">
+                <% teriacontrole.map( item => { %>
+                <li class="list-group-item"><%= item.item %>: <%= item.result %></li>
+                <% }) %>
+            </ul>
+        </div>
+
+    </div>
+
+    <script>
+        const chartTurnData = {
+            "values": [<%= chartTurn.value %>],
+            labels: ["<%- chartTurn.label %>"],
+            type: 'pie'
+        }
+        const chartSexData = {
+            "values": [<%= chartSex.value %>],
+            labels: ["<%- chartSex.label %>"],
+            type: 'pie'
+        }
+        const chartIdaData = {
+            "values": [<%= chartIda.value %>],
+            labels: ["<%- chartIda.label %>"],
+            type: 'pie'
+        }
+        const chartPlanData = {
+            "values": [<%= chartPlan.value %>],
+            labels: ["<%- chartPlan.label %>"],
+            type: 'pie'
+        }
+        const chartValData = {
+            "values": [<%= chartVal.value %>],
+            labels: ["<%- chartVal.label %>"],
+            type: 'pie'
+        }
+        const chartUsaData = {
+            "values": [<%= chartUsa.value %>],
+            labels: ["<%- chartUsa.label %>"],
+            type: 'pie'
+        }
+        const chartInaData = {
+            "values": [<%= chartIna.value %>],
+            labels: ["<%- chartIna.label %>"],
+            type: 'pie'
+        }
+        const chartTerData = {
+            "values": [<%= chartTer.value %>],
+            labels: ["<%- chartTer.label %>"],
+            type: 'pie'
+        }
+
+        var dataTurno = [chartTurnData];
+        var dataSex = [chartSexData];
+        var dataIda = [chartIdaData];
+        var dataPlanejamento = [chartPlanData];
+        var dataVal = [chartValData];
+        var dataUsa = [chartUsaData];
+        var dataIna = [chartInaData];
+        var dataTer = [chartTerData];
+
+        Plotly.newPlot('divTurno', dataTurno, {}, { showSendToCloud: true });
+        Plotly.newPlot('divSex', dataSex, {}, { showSendToCloud: true });
+        Plotly.newPlot('divIda', dataIda, {}, { showSendToCloud: true });
+        Plotly.newPlot('divPlanejamento', dataPlanejamento, {}, { showSendToCloud: true });
+        Plotly.newPlot('divVal', dataVal, {}, { showSendToCloud: true });
+        Plotly.newPlot('divUsa', dataUsa, {}, { showSendToCloud: true });
+        Plotly.newPlot('divIna', dataIna, {}, { showSendToCloud: true });
+        Plotly.newPlot('divTer', dataTer, {}, { showSendToCloud: true });
+    </script>
+
+</body>
+
+</html>

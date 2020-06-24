@@ -4,6 +4,8 @@ Ferramenta para auxílio de pesquisa de campo para uso dos estudantes de Contabi
 
 #### Para visualizar: /resultados
 
+![Preview](https://github.com/RenatoSiqueira/Contabilidade_Pesquisa/blob/master/preview.png)
+
 #### Techs Envolvidas:
 ```
 - dotenv
